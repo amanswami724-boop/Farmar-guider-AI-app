@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <style>
+        .result-container {
+            margin: 40px auto;
+            padding: 30px;
+            max-width: 600px;
+            border: 2px solid #4CAF50;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .result-container h1 {
+            color: #4CAF50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .result-box {
+            background-color: white;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #4CAF50;
+        }
+        .result-box p {
+            font-size: 18px;
+            margin: 10px 0;
+            color: #333;
+        }
+        .result-value {
+            font-weight: bold;
+            color: #4CAF50;
+            font-size: 20px;
+        }
+        .error-box {
+            background-color: #ffebee;
+            color: #c62828;
+            padding: 20px;
+            border-radius: 5px;
+            border-left: 4px solid #c62828;
+            margin: 20px 0;
+        }
+        .button-group {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .button-group button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 30px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        .button-group button:hover {
+            background-color: #45a049;
+        }
+        .back-btn {
+            background-color: #2196F3 !important;
+        }
+        .back-btn:hover {
+            background-color: #0b7dda !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="result-container">
+        {% if error %}
+            <h1>⚠️ Error Occurred</h1>
+            <div class="error-box">
+                <p><strong>Error:</strong> {{ error }}</p>
+            </div>
+        {% else %}
+            {% if type == 'crop' %}
+                <h1>🌾 Crop Recommendation</h1>
+                <div class="result-box">
+                    <p>Based on the input parameters, the recommended crop is:</p>
+                    <p class="result-value">{{ prediction }}</p>
+                </div>
+            {% elif type == 'fertilizer' %}
+                <h1>🌱 Fertilizer Recommendation</h1>
+                <div class="result-box">
+                    <p>Based on the soil conditions, the recommended fertilizer is:</p>
+                    <p class="result-value">{{ prediction }}</p>
+                </div>
+            {% else %}
+                <h1>✅ Prediction Result</h1>
+                <div class="result-box">
+                    <p>Predicted Result:</p>
+                    <p class="result-value">{{ prediction }}</p>
+                </div>
+            {% endif %}
+        {% endif %}
+        
+        <div class="button-group">
+            <button class="back-btn" onclick="history.back()">← Go Back</button>
+            <button onclick="location.href='/'">🏠 Home</button>
+        </div>
+    </div>
+</body>
+</html>
